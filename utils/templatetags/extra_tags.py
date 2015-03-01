@@ -3,7 +3,11 @@ import datetime
 from django import template
 from django.utils.translation import ugettext, ungettext
 
+from markdown import markdown
+
 register = template.Library()
+
+register.filter('markdown', markdown)
 
 @register.filter(name='timesince_human')
 def humanize_timesince(date):

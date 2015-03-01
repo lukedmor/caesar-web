@@ -57,13 +57,15 @@
   </div>
   
   {% if activity_view and highlight_comment.id == comment.id %}
-  <p id="highlight-comment-text-{{comment.id}}" class="comment-text">
-    {{ comment.text | urlize }}
-  </p>
+  <div id="highlight-comment-text-{{comment.id}}" class="comment-text">
+    {{ comment.text | markdown | safe | urlize }}
+  </div>
   {% else %}
-  <p id="comment-text-{{comment.id}}" class="comment-text">
-    {%if comment.deleted %}[deleted]{% else %}{{ comment.text | urlize }}{%endif%}
-  </p>
+  <div id="comment-text-{{comment.id}}" class="comment-text">
+    {% if comment.deleted %}[deleted]{% else %}
+    {{ comment.text | markdown | safe | urlize }}
+    {% endif %}
+  </div>
   {% endif %}
   <div class="comment-author">
       {% if comment.is_edited and not comment.deleted %}
